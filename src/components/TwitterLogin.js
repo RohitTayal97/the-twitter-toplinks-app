@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import signInimage from "./../signInButton.png";
+const API_URL = "http://localhost:5000/";
 
 const TwitterLogin = ({ socket }) => {
   const [user, setUser] = useState({});
@@ -10,7 +12,7 @@ const TwitterLogin = ({ socket }) => {
       popup.close();
       setUser(user);
     });
-  }, []);
+  }, [popup, socket]);
 
   const checkPopup = () => {
     const check = setInterval(() => {
@@ -26,7 +28,7 @@ const TwitterLogin = ({ socket }) => {
     const height = 600;
     const left = window.innerWidth / 2 - width / 2;
     const top = window.innerHeight / 2 - height / 2;
-    const url = `${process.env.API_URL}/auth?socketId=${socket.id}`;
+    const url = `${API_URL}/auth?socketId=${socket.id}`;
 
     return window.open(
       url,
@@ -38,7 +40,7 @@ const TwitterLogin = ({ socket }) => {
   };
 
   const startAuth = (e) => {
-    if (disabled) {
+    if (!disabled) {
       e.preventDefault();
       popup = openPopup();
       checkPopup();
@@ -51,9 +53,7 @@ const TwitterLogin = ({ socket }) => {
       {user.name ? (
         <p>signed in as user.name</p>
       ) : (
-        <button onClick={() => startAuth}>
-          <img src="../signInButton.png" alt="Sign In"></img>
-        </button>
+        <img src={signInimage} alt="Sign In" onClick={startAuth} />
       )}
     </h4>
   );

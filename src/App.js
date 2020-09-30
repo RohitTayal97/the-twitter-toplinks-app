@@ -1,11 +1,12 @@
 import React from "react";
-import TwitterLogin from "";
+import TwitterLogin from "./components/TwitterLogin";
 import io from "socket.io-client";
 import "./App.css";
-
-const socket = io(`${process.env.API_URL}`);
+const API_URL = "http://localhost:5000/";
+const socket = io(API_URL);
 
 function App() {
+  console.log(API_URL);
   return (
     <div className="App">
       <header className="App-header">
